@@ -1,7 +1,5 @@
 # Scout
 
-![logo](./docs/assets/scout-logo.svg)
-
 [![Maven Central][mavenbadge-svg]][mavencentral]
 
 A fast and safe manual dependency injector for Kotlin and Android.
