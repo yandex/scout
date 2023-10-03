@@ -1,6 +1,7 @@
-<p float="left">[logo](./docs/assets/scout-logo.svg) Scout</p>
-
-# Scout
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./docs/assets/scout-logo-dark.png">
+  <img src="./docs/assets/scout-logo-light.png" alt="Swift logo" height="70">
+</picture>
 
 [![Maven Central][mavenbadge-svg]][mavencentral]
 
