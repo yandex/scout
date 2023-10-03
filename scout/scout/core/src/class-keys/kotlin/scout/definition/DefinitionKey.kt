@@ -15,10 +15,26 @@
  */
 package scout.definition
 
+/**
+ * This typealias uses for Object dependency key. Use this typealias
+ * like [Any] because its real type can be changed in further releases.
+ */
 typealias ObjectKey = Class<*>
+/**
+ * This typealias uses for Collection dependency key. Use this typealias
+ * like [Any] because its real type can be changed in further releases.
+ */
 typealias CollectionKey = Class<*>
+/**
+ * This typealias uses for Association dependency key. Use this typealias
+ * like [Any] because its real type can be changed in further releases.
+ */
 typealias AssociationKey = Pair<Class<*>, Class<*>>
 
+/**
+ * Utility methods for [ObjectKey]. Don't do any stuff
+ * with [ObjectKey] directly, use this class as public API for keys.
+ */
 object ObjectKeys {
 
     fun create(
@@ -30,6 +46,10 @@ object ObjectKeys {
     fun getClass(key: ObjectKey): Class<*>? = key
 }
 
+/**
+ * Utility methods for [CollectionKey]. Don't do any stuff
+ * with [CollectionKey] directly, use this class as public API for keys.
+ */
 object CollectionKeys {
 
     fun create(
@@ -41,6 +61,10 @@ object CollectionKeys {
     fun getClass(key: CollectionKey): Class<*>? = key
 }
 
+/**
+ * Utility methods for [AssociationKey]. Don't do any stuff
+ * with [AssociationKey] directly, use this class as public API for keys.
+ */
 object AssociationKeys {
 
     fun create(

@@ -19,6 +19,7 @@ import scout.mapper.CompiledKeyMapper
 import scout.mapper.KeysMap
 
 // Anonymous class must be inlined because it will be populated with bytecode instructions
+// Don't rename this method as it's name used in scout-gradle-plugin
 @Suppress("NOTHING_TO_INLINE")
 inline fun Scout.enableKeyDecoding() {
     compiledKeyMapper = object : CompiledKeyMapper {

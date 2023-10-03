@@ -16,6 +16,7 @@ plugins {
 
 scout {
     compileKeys = withCompiledKeys
+    generateCompiledKeyMapper = withCompiledKeys
 }
 
 repositories {

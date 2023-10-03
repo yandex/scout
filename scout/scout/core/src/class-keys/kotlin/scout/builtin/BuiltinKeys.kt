@@ -19,7 +19,7 @@ import scout.Provider
 import scout.definition.ObjectKey
 import scout.definition.ObjectKeys
 
-object BuiltinKeys {
+internal object BuiltinKeys {
     val OBJECT_KEY_LAZY: ObjectKey = ObjectKeys.create(Lazy::class.java)
     val OBJECT_KEY_PROVIDER: ObjectKey = ObjectKeys.create(Provider::class.java)
     val OBJECT_KEY_UNIT: ObjectKey = ObjectKeys.create(Unit::class.java)

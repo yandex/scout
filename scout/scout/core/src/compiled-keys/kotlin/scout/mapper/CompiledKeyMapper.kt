@@ -15,7 +15,7 @@
  */
 package scout.mapper
 
-interface CompiledKeyMapper {
+internal interface CompiledKeyMapper {
 
     /**
      * This method is implemented by Scout gradle plugin. Don't write any code here.

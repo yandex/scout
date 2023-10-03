@@ -167,7 +167,7 @@ class ScoutCompileKeysFeature(private val project: Project) {
                 classGen.javaClass.dump(FileOutputStream(file))
             }
 
-            return "inlined\$$SCOUT_INIT_COMPILE_KEY_MAPPER_METHOD_NAME" in javaClass.className &&
+            return "inlined\$$SCOUT_ENABLE_KEY_DECODING_METHOD_NAME" in javaClass.className &&
                     javaClass.methods.any { it.name == COMPILE_KEY_MAPPER_METHOD_NAME && !it.isAbstract }
         }
 
@@ -395,8 +395,6 @@ class ScoutCompileKeysFeature(private val project: Project) {
         cg.javaClass.dump(file)
     }
 
-
-
     /**
      * Represents a No-Operation (NOP) instruction within the bytecode.
      * This class extends the `Instruction` class, allowing it to be used as a placeholder
@@ -436,7 +434,7 @@ class ScoutCompileKeysFeature(private val project: Project) {
     companion object {
         private const val MAPS_FILE = "scout-maps-file.txt"
 
-        private const val SCOUT_INIT_COMPILE_KEY_MAPPER_METHOD_NAME = "initCompileKeyMapper"
+        private const val SCOUT_ENABLE_KEY_DECODING_METHOD_NAME = "enableKeyDecoding"
 
         private const val CREATE_METHOD_NAME = "create"
 

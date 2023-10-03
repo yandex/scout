@@ -15,7 +15,7 @@
  */
 package scout.mapper
 
-interface KeysMap {
+internal interface KeysMap {
     fun putObjectKey(key: Int, className: String)
 
     fun putCollectionKey(key: Int, className: String)

@@ -20,10 +20,26 @@ package scout.definition
 import scout.compiledKeyMapper
 import scout.mapper.CompiledKeysFormatter
 
+/**
+ * This typealias uses for Object dependency key. Use this typealias
+ * like [Any] because its real type can be changed in further releases.
+ */
 typealias ObjectKey = Int
+/**
+ * This typealias uses for Collection dependency key. Use this typealias
+ * like [Any] because its real type can be changed in further releases.
+ */
 typealias CollectionKey = Int
+/**
+ * This typealias uses for Association dependency key. Use this typealias
+ * like [Any] because its real type can be changed in further releases.
+ */
 typealias AssociationKey = Int
 
+/**
+ * Utility methods for [ObjectKey]. Don't do any stuff
+ * with [ObjectKey] directly, use this class as public API for keys.
+ */
 object ObjectKeys {
 
     @JvmStatic
@@ -45,6 +61,10 @@ object ObjectKeys {
     }
 }
 
+/**
+ * Utility methods for [CollectionKey]. Don't do any stuff
+ * with [CollectionKey] directly, use this class as public API for keys.
+ */
 object CollectionKeys {
 
     @JvmStatic
@@ -66,6 +86,10 @@ object CollectionKeys {
     }
 }
 
+/**
+ * Utility methods for [AssociationKey]. Don't do any stuff
+ * with [AssociationKey] directly, use this class as public API for keys.
+ */
 object AssociationKeys {
 
     @JvmStatic

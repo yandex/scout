@@ -17,7 +17,7 @@ package scout.builtin
 
 import scout.definition.ObjectKey
 
-object BuiltinKeys {
+internal object BuiltinKeys {
     const val OBJECT_KEY_LAZY: ObjectKey = -1
     const val OBJECT_KEY_PROVIDER: ObjectKey = -2
     const val OBJECT_KEY_UNIT: ObjectKey = -3
