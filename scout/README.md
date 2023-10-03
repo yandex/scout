@@ -9,7 +9,7 @@ Primary library sources located in `scout` directory (modules `core`, `inspector
 Contains implementation of library for usage in production code sources.
 
 ### Module: scout/inspector
-Contains utility for inspecting the scope content. This utility uses by validator but you can build custom tools based on it.
+Contains utility for inspecting the scope content. This utility used by validator but you can build custom tools based on it.
 
 ### Module: scout/validator
 Contains implementation of validator and common checks. There are also some useful classes to build your own checks, component producers, etc.
