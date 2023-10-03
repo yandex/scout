@@ -3,6 +3,8 @@
   <img src="./docs/assets/scout-logo-light.png" alt="Swift logo" height="70">
 </picture>
 
+<div><br></div>
+
 [![Maven Central][mavenbadge-svg]][mavencentral]
 
 A fast and safe manual dependency injector for Kotlin and Android.
