@@ -1,3 +1,5 @@
+<p float="left">[logo](./docs/assets/scout-logo.svg) Scout</p>
+
 # Scout
 
 [![Maven Central][mavenbadge-svg]][mavencentral]
