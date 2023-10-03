@@ -15,7 +15,7 @@ class GoodComponent : Component(myScope) { ... }
 class BadComponent(scope: Scope) : Component(scope)
 ```
 
-## Access should be determined
+## Request should be determined
 
 Component methods should not branch with a choice of the type to be queried. If a method does 
 not determine the requested type, the test cannot guarantee that the same type will be 
@@ -35,15 +35,14 @@ class BadComponent : Component(myScope) {
     }
 }
 ```
-## Access should be synchronous
+## Request should be synchronous
 
 Component methods must synchronously query all necessary types from the graph. If there are 
 asynchronous calls in a component method, they will not be validated because they will not be 
 called in the test. Сomponent сдфыы provides special methods for obtaining `Lazy` and 
 `Provider`.
 
-```
-kotlin
+```kotlin
 class GoodComponent : Component(myScope) {
     fun getMyController(): MyController = auto()
     fun getMyControllerLazy(): Lazy<MyController> = autoLazy()
@@ -84,8 +83,7 @@ The factory must synchronously receive all dependencies to create an object. If 
 has `get` / `collect` / `associate` calls in asynchronous blocks, those calls will not be 
 validated. Special methods are available in the factory to obtain `Lazy` / `Provider`.
 
-```
-kotlin
+```kotlin
 factory<MyService> { // good factory
     val settings = getLazy<ServerSettings>()
     MyService(
