@@ -73,10 +73,8 @@ Validate 1 components using ConsistencyChecker
 // Gradle: build.gradle
 dependencies {
     implementation "com.yandex.scout:scout-core:$scout_version" // main library
-    testImplementation "com.yandex.scout:scout-validator:$scout_version" // validator and 
-built-in checks
-    testImplementation "com.yandex.scout:classgraph-collector:$scout_version" // built-in 
-component collector
+    testImplementation "com.yandex.scout:scout-validator:$scout_version" // validator and built-in checks
+    testImplementation "com.yandex.scout:classgraph-collector:$scout_version" // built-in component collector
 }
 ```
 
