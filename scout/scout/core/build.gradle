@@ -1,0 +1,51 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm' version "$kotlin_version"
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
+
+kotlin {
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        kotlin {
+            if (withCompiledKeys) {
+                //noinspection GroovyAssignabilityCheck
+                srcDir('src/compiled-keys/kotlin')
+            } else {
+                //noinspection GroovyAssignabilityCheck
+                srcDir('src/class-keys/kotlin')
+            }
+        }
+    }
+}
+
+dependencies {
+    testImplementation junit_api_library
+    testImplementation junit_engine_library
+    testImplementation assertj_library
+}
+
+test {
+    useJUnitPlatform()
+}
+
+if (withCompiledKeys) {
+    ext.artifact = 'scout-core-with-compiled-keys'
+} else {
+    ext.artifact = 'scout-core'
+}
+apply from: '../../publish.gradle'

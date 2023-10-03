@@ -1,0 +1,6 @@
+ext {
+    assertj_library = "org.assertj:assertj-core:$assertj_version"
+    junit_api_library = "org.junit.jupiter:junit-jupiter-api:$junit_version"
+    junit_engine_library = "org.junit.jupiter:junit-jupiter-engine:$junit_version"
+    classgraph_library = "io.github.classgraph:classgraph:$classgraph_version"
+}

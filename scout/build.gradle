@@ -1,0 +1,39 @@
+buildscript {
+    apply from: 'versions.gradle'
+    apply from: 'libraries.gradle'
+    apply from: 'modules.gradle'
+    apply from: 'features.gradle'
+
+    dependencies {
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
+    }
+}
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version "$kotlin_version" apply false
+    id 'scout-gradle-plugin'
+}
+
+scout {
+    compileKeys = withCompiledKeys
+}
+
+repositories {
+    mavenCentral()
+}
+
+allprojects {
+
+    group = 'com.yandex.scout'
+    version = "$scout_version"
+
+    apply plugin: 'org.jetbrains.dokka'
+    dokkaJavadoc { }
+    task dokkaJar(type: Jar) {
+        archiveClassifier = 'javadoc'
+        from dokkaJavadoc
+    }
+    tasks.withType(GenerateModuleMetadata) {
+        dependsOn(dokkaJar)
+    }
+}

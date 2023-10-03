@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version "$kotlin_version"
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
+
+kotlin {
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation scout_core_module
+    testImplementation scout_validator_module
+    testImplementation classgraph_collector_module
+    testImplementation junit_api_library
+    testImplementation junit_engine_library
+}
+
+test {
+    useJUnitPlatform()
+}

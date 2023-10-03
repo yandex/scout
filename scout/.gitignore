@@ -1,0 +1,6 @@
+### Gradle ###
+.gradle
+
+### Benchmarks ###
+measures/jvm-benchmarks/src/main/kotlin/graphs/*
+measures/jvm-benchmarks/results

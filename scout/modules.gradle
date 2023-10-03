@@ -1,0 +1,6 @@
+ext {
+    scout_core_module = project(":scout:core")
+    scout_inspector_module = project(":scout:inspector")
+    scout_validator_module = project(":scout:validator")
+    classgraph_collector_module = project(":tools:classgraph-collector")
+}

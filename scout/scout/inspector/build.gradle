@@ -1,0 +1,38 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm' version "$kotlin_version"
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
+
+kotlin {
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation scout_core_module
+    testImplementation junit_api_library
+    testImplementation junit_engine_library
+    testImplementation assertj_library
+}
+
+test {
+    useJUnitPlatform()
+}
+
+if (withCompiledKeys) {
+    ext.artifact = 'scout-inspector-with-compiled-keys'
+} else {
+    ext.artifact = 'scout-inspector'
+}
+apply from: '../../publish.gradle'

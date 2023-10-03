@@ -1,0 +1,52 @@
+buildscript {
+    apply from: '../../versions.gradle'
+    dependencies {
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+    repositories {
+        jcenter()
+    }
+}
+
+apply plugin: 'java-gradle-plugin'
+apply plugin: 'kotlin'
+
+description = 'Scout – fast and safe manual dependency injector for Kotlin and Android.'
+
+gradlePlugin {
+    automatedPublishing = false
+    plugins.register("scout-gradle-plugin") {
+        id = "scout-gradle-plugin"
+        implementationClass = "scout.ScoutPlugin"
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.apache.bcel:bcel:6.6.0"
+    implementation gradleApi()
+}
+
+allprojects {
+
+    group = 'com.yandex.scout'
+    version = "$scout_version"
+
+    apply plugin: 'org.jetbrains.dokka'
+    dokkaJavadoc { }
+    task dokkaJar(type: Jar) {
+        archiveClassifier = 'javadoc'
+        from dokkaJavadoc
+    }
+    tasks.withType(GenerateModuleMetadata) {
+        dependsOn(dokkaJar)
+    }
+}
+
+ext.artifact = 'scout-gradle-plugin'
+apply from: '../../publish.gradle'

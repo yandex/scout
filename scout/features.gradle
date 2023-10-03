@@ -1,0 +1,1 @@
+ext.withCompiledKeys = System.getProperty("scout.compile.keys") == "true"

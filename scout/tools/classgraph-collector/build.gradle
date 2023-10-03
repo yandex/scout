@@ -1,0 +1,29 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm' version "$kotlin_version"
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
+
+kotlin {
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation scout_core_module
+    implementation scout_validator_module
+    implementation classgraph_library
+}
+
+ext.artifact = 'classgraph-collector'
+apply from: '../../publish.gradle'
