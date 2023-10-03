@@ -1,6 +1,6 @@
 # Scout
 
-![logo](./docs/assets/scout-logo.png)
+![logo](./docs/assets/scout-logo.svg)
 
 [![Maven Central][mavenbadge-svg]][mavencentral]
 
