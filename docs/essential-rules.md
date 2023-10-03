@@ -23,15 +23,15 @@ requested during program execution.
 
 ```kotlin
 class GoodComponent : Component(myScope) {
-    fun getMyController(): MyController = auto()    
-    fun getMyService(): MyService = auto()
+    fun getMyController(): MyController = get()    
+    fun getMyService(): MyService = get()
 }
 
 class BadComponent : Component(myScope) {
     fun getMyControllerOrService() = if (Random.nextBoolean()) {
-        auto<MyController>()
+        get<MyController>()
     } else {
-        auto<MyService>()
+        get<MyService>()
     }
 }
 ```
@@ -44,14 +44,14 @@ called in the test. Сomponent сдфыы provides special methods for obtaining
 
 ```kotlin
 class GoodComponent : Component(myScope) {
-    fun getMyController(): MyController = auto()
-    fun getMyControllerLazy(): Lazy<MyController> = autoLazy()
+    fun getMyController(): MyController = get()
+    fun getMyControllerLazy(): Lazy<MyController> = getLazy()
 }
 
 class BadComponent : Component(myScope) {
     fun getMyController() = lazy {
-        // oops! auto() fails on lazy.value call
-        auto<MyComponent>()
+        // oops! get() fails on lazy.value call
+        get<MyComponent>()
     }
 }
 ```
