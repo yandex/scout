@@ -14,12 +14,6 @@ plugins {
     id 'scout-gradle-plugin'
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-
 scout {
     compileKeys = withCompiledKeys
     generateCompiledKeyMapper = withCompiledKeys
