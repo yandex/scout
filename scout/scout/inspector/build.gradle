@@ -3,18 +3,6 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version "$kotlin_version"
 }
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
-}
-
-kotlin {
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
-}
-
 repositories {
     mavenCentral()
 }

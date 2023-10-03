@@ -1,5 +1,5 @@
 ext {
-    scout_version = '0.9.0'
+    scout_version = '0.9.1'
 
     kotlin_version = '1.8.22'
     gradle_version = '8.2.1'

@@ -5,18 +5,6 @@ plugins {
     id 'graph-generator-plugin'
 }
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
-}
-
-kotlin {
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
-}
-
 repositories {
     mavenCentral()
 }
