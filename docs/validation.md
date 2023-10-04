@@ -36,10 +36,8 @@ MyRuleChecker
 ```groovy
 // Gradle: build.gradle
 dependencies {
-    testImplementation "com.yandex.scout:scout-validator:$scout_version" // required: 
-validator and built-in checkers
-    testImplementation "com.yandex.scout:classgraph-collector:$scout_version" // optional: 
-built-in component collector
+    testImplementation "com.yandex.scout:scout-validator:$scout_version" // required: validator and built-in checkers
+    testImplementation "com.yandex.scout:classgraph-collector:$scout_version" // optional: built-in component collector
 }
 ```
 
@@ -57,8 +55,7 @@ val componentProducer = ComponentCollector(
     // filter sources by root package names
     packageNames = listOf("my.package1", "other.package2"),
     // filter classpaths for scanning
-    classpathFilter = { classpath -> classpath.endsWith(".jar") && 
-!classpath.endsWith("/res.jar") },
+    classpathFilter = { classpath -> classpath.endsWith(".jar") && !classpath.endsWith("/res.jar") },
     // set custom class loader
     classLoader = InstrumentationRegistry.getArguments().classLoader,
     // custom instance producer (ReflectiveInstanceProducer is a part of 
