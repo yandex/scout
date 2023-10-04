@@ -53,7 +53,7 @@ private val assessments = listOf(
 From now "my new benchmark" option will be available in run-configurator.
 
 ## Accuracy
-To make your more accurate, increase benchmark settings constants:
+To make your results more accurate, increase benchmark settings constants:
 ```kotlin
 // jvm-benchmarks: Launcher.kt
 const val DEFAULT_WARMUP_ITERATIONS = 1 // -> 2
