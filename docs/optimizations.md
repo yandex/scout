@@ -1,4 +1,5 @@
 # Optimizations
+This manual describes build-in optimizations that you can enable if it's necessary.
 
 ## Disable Interceptors
 Scout provides the ability to explicilty disable Interceptors mechanism. This class can gain up to 10% dependency resolving speedup. Just call `disableInterceptors` method on program start.
@@ -16,7 +17,7 @@ WarmGet125.scout       656.996    610.224      -7.1%         (GOOD)
 ## Switch to Compiled Keys
 Scout provides version with compiled (integer) keys. This version reduces graph creation time up to 50%, but a bit slows dependency resolving. Key compilation carried with `scout-gradle-plugin`.
 
-**0. Add "-with-compiled-keys" suffix to core, inspector and validator dependencies**
+**1. Add "-with-compiled-keys" suffix to core, inspector and validator dependencies**
 ```groovy
 // before
 dependencies {
@@ -33,7 +34,7 @@ dependencies {
 }
 ```
 
-**1. Add plugin classpath**
+**2. Add plugin classpath**
 ```groovy
 // root: build.gradle
 buildscript {
@@ -43,7 +44,7 @@ buildscript {
 }
 ```
 
-**2. Apply plugin**
+**3. Apply plugin**
 ```groovy
 // root: build.gradle
 plugins {
@@ -53,7 +54,7 @@ plugins {
 apply plugin: 'scout-gradle-plugin'
 ```
 
-**3. Configure plugin**
+**4. Configure plugin**
 ```groovy
 apply plugin: 'scout-gradle-plugin'
 
@@ -63,7 +64,7 @@ scout {
 }
 ```
 
-**4. Enable key decoding**
+**5. Enable key decoding**
 ```kotlin
 Scout.enableKeyDecoding()
 ```
