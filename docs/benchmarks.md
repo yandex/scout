@@ -6,7 +6,7 @@ You can find it in [jvm-benchmarks module](https://github.com/yandex/scout/tree/
 
 ## Launcher
 You can run benchmarks using `main` method in [jvm-benchmarks/Launcher.kt](https://github.com/yandex/scout/blob/main/scout/measures/jvm-benchmarks/src/main/kotlin/scout/benchmark/Launcher.kt). 
-Once you have launched benchmarks, you will see run-configurator. Enter numbers of benchmarks you want to run. It's possible to specify several benchmark numbers separated by space. Enter 0 to run all existing benchmarks.
+Once you have launched benchmarks, you will see run-configurator. Enter numbers of benchmarks you want to run. It's possible to specify several benchmark numbers separated by space. Enter `0` to run all existing benchmarks.
 ```kotlin
 Assessment benchmarks:
 1. get call
