@@ -12,6 +12,18 @@ buildscript {
 apply plugin: 'java-gradle-plugin'
 apply plugin: 'kotlin'
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(java_version))
+    }
+}
+
+kotlin {
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(java_version))
+    }
+}
+
 description = 'Scout – fast and safe manual dependency injector for Kotlin and Android.'
 
 gradlePlugin {
