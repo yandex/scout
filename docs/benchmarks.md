@@ -53,3 +53,4 @@ graphs {
     // method 'random' can be use to make generation random (determined by default)
 }
 ```
+New graph will be generated while benchmarks build process (sources will be populated to `jvm-benchmarks/build/generated/sources/graphGenerator/graphs` folder).
