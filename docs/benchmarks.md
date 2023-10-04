@@ -39,6 +39,32 @@ Do you want to rewrite control results? (Y)es/(n)o:
 
 Enter `y`, `Y`, `yes` to save the results as control results if you want.
 
+## Scenarios
+Once you have implemented new benchmark, you should to register new scenario for launcher:
+```kotlin
+// jvm-benchmarks: Launcher.kt
+private val assessments = listOf(
+    ...
+    "my new benchmark" includes listOf(
+        MyNewBenchmark::class
+    )
+)
+```
+From now "my new benchmark" option will be available in run-configurator.
+
+## Accuracy
+To make your more accurate, increase benchmark settings constants:
+```kotlin
+// jvm-benchmarks: Launcher.kt
+const val DEFAULT_WARMUP_ITERATIONS = 1 // -> 2
+const val DEFAULT_WARMUP_SECONDS = 1 // -> 3
+const val DEFAULT_MEASURE_ITERATIONS = 1 // -> 5
+const val DEFAULT_MEASURE_SECONDS = 1 // -> 3
+const val DEFAULT_FORKS = 1 // -> 3
+const val COLD_MEASURE_FORKS = 10 // -> 30
+```
+Further runs will take longer but more accurate, be patient.
+
 ## Test data
 In order to run benchmarks, test data is needed. To simplify test data inflation, we have implemented [graph-generator-plugin](https://github.com/yandex/scout/tree/main/scout/measures/graph-generator-plugin). You can add some test graphs:
 ```groovy
