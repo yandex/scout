@@ -86,6 +86,7 @@ You can find here tutorials to help you learn and get started with Scout:
 - [Validation Guide](docs/validation.md)
 - [Multibindings](docs/multibindings.md)
 - [Lazy and Provider](docs/deferred-requests.md)
+- [Optimizations](docs/optimizations.md)
 - [Benchmarks](docs/benchmarks.md)
 
 ## License
