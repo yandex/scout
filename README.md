@@ -80,7 +80,6 @@ dependencies {
 
 ## Tutorials
 
-You can find here tutorials to help you learn and get started with Scout:
 - [Quick Start](docs/quick-start-guide.md)
 - [Essential Rules](docs/essential-rules.md)
 - [Validation Guide](docs/validation.md)
