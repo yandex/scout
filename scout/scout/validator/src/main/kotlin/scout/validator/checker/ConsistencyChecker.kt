@@ -37,7 +37,7 @@ import java.lang.reflect.Method
  * Checks that each component method (corresponding to the [methodFilter])
  * completes without errors and deferred requests (lazies and providers)
  * completes without errors too. Methods invokes using [methodInvoker] so
- * you can customize invoke logic (for example, argument stubbing).
+ * you can customize invocation logic (for example, argument stubbing).
  */
 class ConsistencyChecker(
     private val methodFilter: MethodFilter,
