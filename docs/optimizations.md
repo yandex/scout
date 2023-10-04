@@ -2,7 +2,7 @@
 This manual describes build-in optimizations that you can enable if it's necessary.
 
 ## Disable Interceptors
-Scout provides the ability to explicilty disable Interceptors mechanism. This class can gain up to 10% dependency resolving speedup. Just call `disableInterceptors` method on program start.
+Scout provides the ability to explicilty disable `Interceptor`s mechanism. This option can gain up to 10% dependency resolving speedup. Just call `disableInterceptors` method on program start.
 ```kotlin
 Scout.Optimizations.disableInterceptors()
 ```
