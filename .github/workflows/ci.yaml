@@ -134,5 +134,5 @@ jobs:
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: '${{steps.export_result.outputs.compareResult}}'
+            body: context.steps.export_result.outputs.compareResult
           })
