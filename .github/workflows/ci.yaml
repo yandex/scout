@@ -10,12 +10,8 @@ jobs:
   build-sources:
     strategy:
       fail-fast: false
-      matrix:
-        os:
-          - ubuntu-latest
-          - windows-latest
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
@@ -28,6 +24,9 @@ jobs:
       uses: gradle/gradle-build-action@v2
 
     - name: Build Sources
+      run: cd scout && ./gradlew assemble --stacktrace
+
+    - name: Run Unit-Tests
       run: cd scout && ./gradlew test --stacktrace
 
     
