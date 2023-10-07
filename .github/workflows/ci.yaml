@@ -130,9 +130,10 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
+          import fs from 'fs-extra';
           github.rest.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: context.steps.export_result.outputs.compareResult
+            body: fs.readFile("scout/measures/jvm-benchmarks/results/compare.txt").toString()
           })
