@@ -41,10 +41,17 @@ import scout.benchmark.benchmarks.comparison.WarmGet5Benchmark
 import scout.benchmark.platform.Scenario
 import scout.benchmark.platform.compareResults
 import scout.benchmark.platform.saveResults
+import java.lang.IllegalArgumentException
 import java.util.Scanner
 import kotlin.reflect.KClass
 
-fun main() = launch()
+fun main(args: Array<String>) {
+    if (args.isEmpty()) {
+        interactive()
+    } else {
+        independent(args)
+    }
+}
 
 const val DEFAULT_WARMUP_ITERATIONS = 1
 const val DEFAULT_WARMUP_SECONDS = 1
@@ -133,7 +140,7 @@ abstract class Optimized {
 private val options = OptionsBuilder()
     .mode(Mode.AverageTime)
 
-private fun launch() {
+private fun interactive() {
     val scanner = Scanner(System.`in`)
 
     println("Assessment benchmarks:")
@@ -166,6 +173,32 @@ private fun launch() {
     }
 }
 
+private fun independent(args: Array<String>) {
+    val indices = args.map { arg -> arg.toInt() }
+    val scenarios = mutableListOf<Scenario>()
+    for (index in indices) {
+        if (index < 0) {
+            throw IllegalArgumentException("Scenario out of bounds: $index")
+        } else if (index < assessments.size) {
+            scenarios += assessments[index]
+        } else if (index < assessments.size + comparisons.size) {
+            scenarios += comparisons[index - assessments.size]
+        } else {
+            throw IllegalArgumentException("Scenario out of bounds: $index")
+        }
+    }
+
+    val benchmarks = selectBenchmarks(
+        indices = indices
+    ) ?: return
+
+    val results = Runner(options + benchmarks).run()
+
+    compareResults(results)
+
+    saveResults(results)
+}
+
 private fun selectBenchmarks(answer: String): List<KClass<*>>? {
     val indices = try {
         answer.split(" ", ",", ";").map { index -> index.toInt() }
@@ -173,7 +206,10 @@ private fun selectBenchmarks(answer: String): List<KClass<*>>? {
         println("Expected numeric answer, get \"$answer\"")
         return null
     }
+    return selectBenchmarks(indices)
+}
 
+private fun selectBenchmarks(indices: List<Int>): List<KClass<*>>? {
     val benchmarks = mutableListOf<KClass<*>>()
     for (index in indices) {
         if (index == 0) {
@@ -185,7 +221,7 @@ private fun selectBenchmarks(answer: String): List<KClass<*>>? {
         } else if (assessments.size < index && index <= assessments.size + comparisons.size) {
             benchmarks.addAll(comparisons[index - assessments.size - 1].benchmarks)
         } else {
-            println("Scenario number is out of range: $answer")
+            println("Scenario number is out of range: $index")
             return null
         }
     }
