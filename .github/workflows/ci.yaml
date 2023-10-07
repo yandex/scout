@@ -116,7 +116,7 @@ jobs:
       run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="1 2 3 4 5 6"
 
     - name: Export Compare Result
-      run: cd scout && cat measures/jvm-benchmarks/results/compare.txt >> $compare_result
+      run: cd scout && echo "COMPARE_RESULT=$(cat measures/jvm-benchmarks/results/compare.txt) >> $GITHUB_ENV
 
     - name: Publish Compare Result
       uses: actions/github-script@v6
@@ -126,5 +126,5 @@ jobs:
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: '$compare_result'
+            body: 'COMPARE_RESULT'
           })
