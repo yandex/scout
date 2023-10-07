@@ -20,5 +20,6 @@ import org.openjdk.jmh.results.RunResult
 internal fun formatBenchmarkId(result: RunResult) = result.params.benchmark
     .removePrefix("scout.benchmark.benchmarks.assessment.")
     .removePrefix("scout.benchmark.benchmarks.comparison.")
+    .replace("Benchmark.", ".")
 
 internal fun getBenchmarkScore(result: RunResult) = result.primaryResult.score
