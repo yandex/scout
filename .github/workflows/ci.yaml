@@ -26,6 +26,25 @@ jobs:
     - name: Build Sources
       run: cd scout && ./gradlew assemble --stacktrace
 
+  build-sources-with-compiled-keys:
+    strategy:
+      fail-fast: false
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-java@v3
+      with:
+          java-version: '11'
+          distribution: 'temurin'
+      
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+
+    - name: Build Sources
+      run: cd scout && ./gradlew assemble -Dscout.compile.keys=true --stacktrace
+
   run-unit-tests:
     strategy:
       fail-fast: false
@@ -44,4 +63,29 @@ jobs:
 
     - name: Run Unit-Tests
       run: cd scout && ./gradlew test --stacktrace
-    
+
+  run-unit-tests-with-compiled-keys:
+    strategy:
+      fail-fast: false
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-java@v3
+      with:
+          java-version: '11'
+          distribution: 'temurin'
+      
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+
+    - name: Run Unit-Tests
+      run: cd scout && ./gradlew test -Dscout.compile.keys=true --stacktrace
+
+  check-license-headers:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check License Headers
+      run: ./scripts/check-license-headers.sh
