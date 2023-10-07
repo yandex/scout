@@ -115,17 +115,6 @@ jobs:
     - name: Changed Benchmarks
       run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="1"
 
-    - name: Export Compare Result
-      id: export_result
-      run: |
-        content=`cat scout/measures/jvm-benchmarks/results/compare.txt`
-        content="${content//'%'/'%25'}"
-        content="${content//$'\n'/'%0A'}"
-        content="${content//$'\r'/'%0D'}"
-        echo "::set-output name=compareResult::$content"
-    - run: |
-        echo "${{steps.export_result.outputs.compareResult}}"
-
     - name: Publish Compare Result
       uses: actions/github-script@v6
       with:
@@ -136,5 +125,5 @@ jobs:
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: results
+            body: "```\n${results}\n```"
           })
