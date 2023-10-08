@@ -21,6 +21,7 @@ import org.openjdk.jmh.runner.Runner
 import org.openjdk.jmh.runner.options.ChainedOptionsBuilder
 import org.openjdk.jmh.runner.options.Options
 import org.openjdk.jmh.runner.options.OptionsBuilder
+import org.openjdk.jmh.runner.options.TimeValue
 import scout.Scout
 import scout.benchmark.benchmarks.assessment.AssociateCallBenchmark
 import scout.benchmark.benchmarks.assessment.BuilderModeBenchmark
@@ -41,10 +42,17 @@ import scout.benchmark.benchmarks.comparison.WarmGet5Benchmark
 import scout.benchmark.platform.Scenario
 import scout.benchmark.platform.compareResults
 import scout.benchmark.platform.saveResults
+import java.lang.IllegalArgumentException
 import java.util.Scanner
 import kotlin.reflect.KClass
 
-fun main() = launch()
+fun main(args: Array<String>) {
+    if (args.isEmpty()) {
+        interactive()
+    } else {
+        independent(args)
+    }
+}
 
 const val DEFAULT_WARMUP_ITERATIONS = 1
 const val DEFAULT_WARMUP_SECONDS = 1
@@ -54,70 +62,70 @@ const val DEFAULT_FORKS = 1
 const val COLD_MEASURE_FORKS = 10
 
 private val assessments = listOf(
-    "get call" includes listOf(
+    "get-call" includes listOf(
         GetCallBenchmark::class
     ),
-    "collect call" includes listOf(
+    "collect-call" includes listOf(
         CollectCallBenchmark::class
     ),
-    "associate call" includes listOf(
+    "associate-call" includes listOf(
         AssociateCallBenchmark::class
     ),
-    "parent access" includes listOf(
+    "parent-access" includes listOf(
         ParentAccessBenchmark::class
     ),
-    "init scope" includes listOf(
+    "init-scope" includes listOf(
         InitScopeBenchmark::class
     ),
-    "builder mode" includes listOf(
+    "builder-mode" includes listOf(
         BuilderModeBenchmark::class
     )
 )
 
 private val comparisons = listOf(
-    "get constant" includes listOf(
+    "get-constant" includes listOf(
         GetConstantBenchmark::class
     ),
-    "get / warm / all" includes listOf(
+    "get/warm/all" includes listOf(
         WarmGet5Benchmark::class,
         WarmGet25Benchmark::class,
         WarmGet125Benchmark::class,
     ),
-    "get / warm / small" includes listOf(
+    "get/warm/small" includes listOf(
         WarmGet5Benchmark::class
     ),
-    "get / warm / medium" includes listOf(
+    "get/warm/medium" includes listOf(
         WarmGet25Benchmark::class
     ),
-    "get / warm / large" includes listOf(
+    "get/warm/large" includes listOf(
         WarmGet125Benchmark::class
     ),
-    "get / cold / all" includes listOf(
+    "get/cold/all" includes listOf(
         ColdGet5Benchmark::class,
         ColdGet25Benchmark::class,
         ColdGet125Benchmark::class,
     ),
-    "get / cold / small" includes listOf(
+    "get/cold/small" includes listOf(
         ColdGet5Benchmark::class
     ),
-    "get / cold / medium" includes listOf(
+    "get/cold/medium" includes listOf(
         ColdGet25Benchmark::class
     ),
-    "get / cold / large" includes listOf(
+    "get/cold/large" includes listOf(
         ColdGet125Benchmark::class
     ),
-    "graph init / all" includes listOf(
+    "graph-init/all" includes listOf(
         GraphInit5Benchmark::class,
         GraphInit25Benchmark::class,
         GraphInit125Benchmark::class,
     ),
-    "graph init / small" includes listOf(
+    "graph-init/small" includes listOf(
         GraphInit5Benchmark::class
     ),
-    "graph init / medium" includes listOf(
+    "graph-init/medium" includes listOf(
         GraphInit25Benchmark::class
     ),
-    "graph init / large" includes listOf(
+    "graph-init/large" includes listOf(
         GraphInit125Benchmark::class
     ),
 )
@@ -133,7 +141,14 @@ abstract class Optimized {
 private val options = OptionsBuilder()
     .mode(Mode.AverageTime)
 
-private fun launch() {
+private fun accurate(builder: ChainedOptionsBuilder) = builder
+    .warmupIterations(2)
+    .warmupTime(TimeValue.seconds(2))
+    .measurementIterations(5)
+    .measurementTime(TimeValue.seconds(2))
+    .forks(3)
+
+private fun interactive() {
     val scanner = Scanner(System.`in`)
 
     println("Assessment benchmarks:")
@@ -166,6 +181,27 @@ private fun launch() {
     }
 }
 
+private fun independent(args: Array<String>) {
+    val benchmarks = mutableListOf<KClass<*>>()
+    val scenarios = assessments + comparisons
+    for (arg in args) {
+        val scenario = scenarios.firstOrNull { scenario ->
+            scenario.name == arg
+        }
+        if (scenario == null) {
+            println("Error: missing scenario $arg")
+            continue
+        }
+        benchmarks += scenario.benchmarks
+    }
+
+    val results = Runner(accurate(options) + benchmarks.distinct()).run()
+
+    compareResults(results)
+
+    saveResults(results)
+}
+
 private fun selectBenchmarks(answer: String): List<KClass<*>>? {
     val indices = try {
         answer.split(" ", ",", ";").map { index -> index.toInt() }
@@ -173,7 +209,10 @@ private fun selectBenchmarks(answer: String): List<KClass<*>>? {
         println("Expected numeric answer, get \"$answer\"")
         return null
     }
+    return selectBenchmarks(indices)
+}
 
+private fun selectBenchmarks(indices: List<Int>): List<KClass<*>>? {
     val benchmarks = mutableListOf<KClass<*>>()
     for (index in indices) {
         if (index == 0) {
@@ -185,7 +224,7 @@ private fun selectBenchmarks(answer: String): List<KClass<*>>? {
         } else if (assessments.size < index && index <= assessments.size + comparisons.size) {
             benchmarks.addAll(comparisons[index - assessments.size - 1].benchmarks)
         } else {
-            println("Scenario number is out of range: $answer")
+            println("Scenario number is out of range: $index")
             return null
         }
     }

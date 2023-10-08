@@ -18,11 +18,8 @@ package scout.benchmark.platform
 import org.openjdk.jmh.results.RunResult
 import java.io.File
 
-private const val RESULT_DIR_PATH = "measures/jvm-benchmarks/results"
-private const val RESULT_FILE_PATH = "$RESULT_DIR_PATH/control.csv"
-
 internal fun fetchControlResults(): Map<String, Double> {
-    val file = File(RESULT_FILE_PATH)
+    val file = File(Environment.RESULT_FILE_PATH)
     if (file.exists()) {
         val lines = file.readLines()
         return lines.associate { line ->
@@ -35,8 +32,8 @@ internal fun fetchControlResults(): Map<String, Double> {
 
 internal fun saveResults(results: Collection<RunResult>) {
     val formatted = formatResults(results)
-    File(RESULT_DIR_PATH).mkdirs()
-    File(RESULT_FILE_PATH).apply {
+    File(Environment.RESULT_DIR_PATH).mkdirs()
+    File(Environment.RESULT_FILE_PATH).apply {
         createNewFile()
         writeText(formatted)
     }

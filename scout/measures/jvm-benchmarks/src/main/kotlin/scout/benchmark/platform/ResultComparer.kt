@@ -16,6 +16,7 @@
 package scout.benchmark.platform
 
 import org.openjdk.jmh.results.RunResult
+import java.io.File
 
 internal fun compareResults(results: Collection<RunResult>) {
     val current = transformRunResults(results)
@@ -23,8 +24,10 @@ internal fun compareResults(results: Collection<RunResult>) {
     val labels = control.keys + current.keys
     val longest = labels.maxOfOrNull { label -> label.length } ?: 0
     val format = "%-${longest + 2}s %10s %10s %10s %14s"
-    println()
-    println(String.format(format, "Benchmark", "Control", "Test", "Diff", "Conclusion"))
+
+    val content = mutableListOf<String>()
+
+    content += String.format(format, "Benchmark", "Control", "Test", "Diff", "Conclusion")
     for (label in control.keys + current.keys) {
         val controlScore = control[label]
         val currentScore = current[label]
@@ -43,16 +46,31 @@ internal fun compareResults(results: Collection<RunResult>) {
                 }
             }
         }
-        println(
-            String.format(
-                format,
-                label,
-                String.format("%.3f", controlScore),
-                String.format("%.3f", currentScore),
-                difference,
-                conclusion
-            )
+        content += String.format(
+            format,
+            label,
+            String.format("%.3f", controlScore),
+            String.format("%.3f", currentScore),
+            difference,
+            conclusion
         )
+    }
+    printCompareResult(content)
+    dumpCompareResult(content)
+}
+
+private fun printCompareResult(content: List<String>) {
+    println()
+    for (line in content) {
+        println(line)
+    }
+}
+
+private fun dumpCompareResult(content: List<String>) {
+    File(Environment.RESULT_DIR_PATH).mkdirs()
+    File(Environment.COMPARE_FILE_PATH).apply {
+        createNewFile()
+        writeText(content.joinToString(separator = "\n"))
     }
 }
 
