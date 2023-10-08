@@ -62,70 +62,70 @@ const val DEFAULT_FORKS = 1
 const val COLD_MEASURE_FORKS = 10
 
 private val assessments = listOf(
-    "get call" includes listOf(
+    "get-call" includes listOf(
         GetCallBenchmark::class
     ),
-    "collect call" includes listOf(
+    "collect-call" includes listOf(
         CollectCallBenchmark::class
     ),
-    "associate call" includes listOf(
+    "associate-call" includes listOf(
         AssociateCallBenchmark::class
     ),
-    "parent access" includes listOf(
+    "parent-access" includes listOf(
         ParentAccessBenchmark::class
     ),
-    "init scope" includes listOf(
+    "init-scope" includes listOf(
         InitScopeBenchmark::class
     ),
-    "builder mode" includes listOf(
+    "builder-mode" includes listOf(
         BuilderModeBenchmark::class
     )
 )
 
 private val comparisons = listOf(
-    "get constant" includes listOf(
+    "get-constant" includes listOf(
         GetConstantBenchmark::class
     ),
-    "get / warm / all" includes listOf(
+    "get/warm/all" includes listOf(
         WarmGet5Benchmark::class,
         WarmGet25Benchmark::class,
         WarmGet125Benchmark::class,
     ),
-    "get / warm / small" includes listOf(
+    "get/warm/small" includes listOf(
         WarmGet5Benchmark::class
     ),
-    "get / warm / medium" includes listOf(
+    "get/warm/medium" includes listOf(
         WarmGet25Benchmark::class
     ),
-    "get / warm / large" includes listOf(
+    "get/warm/large" includes listOf(
         WarmGet125Benchmark::class
     ),
-    "get / cold / all" includes listOf(
+    "get/cold/all" includes listOf(
         ColdGet5Benchmark::class,
         ColdGet25Benchmark::class,
         ColdGet125Benchmark::class,
     ),
-    "get / cold / small" includes listOf(
+    "get/cold/small" includes listOf(
         ColdGet5Benchmark::class
     ),
-    "get / cold / medium" includes listOf(
+    "get/cold/medium" includes listOf(
         ColdGet25Benchmark::class
     ),
-    "get / cold / large" includes listOf(
+    "get/cold/large" includes listOf(
         ColdGet125Benchmark::class
     ),
-    "graph init / all" includes listOf(
+    "graph-init/all" includes listOf(
         GraphInit5Benchmark::class,
         GraphInit25Benchmark::class,
         GraphInit125Benchmark::class,
     ),
-    "graph init / small" includes listOf(
+    "graph-init/small" includes listOf(
         GraphInit5Benchmark::class
     ),
-    "graph init / medium" includes listOf(
+    "graph-init/medium" includes listOf(
         GraphInit25Benchmark::class
     ),
-    "graph init / large" includes listOf(
+    "graph-init/large" includes listOf(
         GraphInit125Benchmark::class
     ),
 )
@@ -183,30 +183,19 @@ private fun interactive() {
 
 private fun independent(args: Array<String>) {
     val benchmarks = mutableListOf<KClass<*>>()
-    if ("assess" in args) {
-        for (scenario in assessments) {
-            benchmarks += scenario.benchmarks
+    val scenarios = assessments + comparisons
+    for (arg in args) {
+        val scenario = scenarios.firstOrNull { scenario ->
+            scenario.name == arg
         }
-    } else if ("compare" in args) {
-        for (scenario in comparisons) {
-            benchmarks += scenario.benchmarks
+        if (scenario == null) {
+            println("Error: missing scenario $arg")
+            continue
         }
-    } else {
-        val indices = args.map { arg -> arg.toInt() }
-        for (index in indices) {
-            if (index < 0) {
-                throw IllegalArgumentException("Scenario out of bounds: $index")
-            } else if (index < assessments.size) {
-                benchmarks += assessments[index].benchmarks
-            } else if (index < assessments.size + comparisons.size) {
-                benchmarks += comparisons[index - assessments.size].benchmarks
-            } else {
-                throw IllegalArgumentException("Scenario out of bounds: $index")
-            }
-        }
+        benchmarks += scenario.benchmarks
     }
 
-    val results = Runner(accurate(options) + benchmarks).run()
+    val results = Runner(accurate(options) + benchmarks.distinct()).run()
 
     compareResults(results)
 
