@@ -182,23 +182,29 @@ private fun interactive() {
 }
 
 private fun independent(args: Array<String>) {
-    val indices = args.map { arg -> arg.toInt() }
-    val scenarios = mutableListOf<Scenario>()
-    for (index in indices) {
-        if (index < 0) {
-            throw IllegalArgumentException("Scenario out of bounds: $index")
-        } else if (index < assessments.size) {
-            scenarios += assessments[index]
-        } else if (index < assessments.size + comparisons.size) {
-            scenarios += comparisons[index - assessments.size]
-        } else {
-            throw IllegalArgumentException("Scenario out of bounds: $index")
+    val benchmarks = mutableListOf<KClass<*>>()
+    if ("assess" in args) {
+        for (scenario in assessments) {
+            benchmarks += scenario.benchmarks
+        }
+    } else if ("compare" in args) {
+        for (scenario in comparisons) {
+            benchmarks += scenario.benchmarks
+        }
+    } else {
+        val indices = args.map { arg -> arg.toInt() }
+        for (index in indices) {
+            if (index < 0) {
+                throw IllegalArgumentException("Scenario out of bounds: $index")
+            } else if (index < assessments.size) {
+                benchmarks += assessments[index].benchmarks
+            } else if (index < assessments.size + comparisons.size) {
+                benchmarks += comparisons[index - assessments.size].benchmarks
+            } else {
+                throw IllegalArgumentException("Scenario out of bounds: $index")
+            }
         }
     }
-
-    val benchmarks = selectBenchmarks(
-        indices = indices
-    ) ?: return
 
     val results = Runner(accurate(options) + benchmarks).run()
 
