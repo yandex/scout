@@ -90,3 +90,249 @@ jobs:
     - uses: actions/checkout@v4
     - name: Check License Headers
       run: ./scripts/check-license-headers.sh
+
+  run-benchmark-get-call:
+    strategy:
+      fail-fast: false
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/setup-java@v3
+      with:
+          java-version: '11'
+          distribution: 'temurin'
+    
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+
+    - name: Checkout Main
+      uses: actions/checkout@v4
+      ref: 'main'
+      
+    - name: Control Benchmarks
+      run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="get-call"
+
+    - name: Checkout Current
+      uses: actions/checkout@v4
+    
+    - name: Change Benchmarks
+      run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="get-call"
+
+    - name: Publish Compare Result
+      uses: actions/github-script@v6
+      with:
+        script: |
+          let fs = require('fs');
+          let results = fs.readFileSync('scout/measures/jvm-benchmarks/results/compare.txt').toString();
+          await github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: "```\n" + results + "\n```"
+          })
+
+  run-benchmark-collect-call:
+    strategy:
+      fail-fast: false
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/setup-java@v3
+      with:
+          java-version: '11'
+          distribution: 'temurin'
+    
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+
+    - name: Checkout Main
+      uses: actions/checkout@v4
+      ref: 'main'
+      
+    - name: Control Benchmarks
+      run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="collect-call"
+
+    - name: Checkout Current
+      uses: actions/checkout@v4
+    
+    - name: Change Benchmarks
+      run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="collect-call"
+
+    - name: Publish Compare Result
+      uses: actions/github-script@v6
+      with:
+        script: |
+          let fs = require('fs');
+          let results = fs.readFileSync('scout/measures/jvm-benchmarks/results/compare.txt').toString();
+          await github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: "```\n" + results + "\n```"
+          })
+
+  run-benchmark-associate-call:
+    strategy:
+      fail-fast: false
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/setup-java@v3
+      with:
+          java-version: '11'
+          distribution: 'temurin'
+    
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+
+    - name: Checkout Main
+      uses: actions/checkout@v4
+      ref: 'main'
+      
+    - name: Control Benchmarks
+      run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="associate-call"
+    
+    - name: Checkout Current
+      uses: actions/checkout@v4
+
+    - name: Change Benchmarks
+      run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="associate-call"
+
+    - name: Publish Compare Result
+      uses: actions/github-script@v6
+      with:
+        script: |
+          let fs = require('fs');
+          let results = fs.readFileSync('scout/measures/jvm-benchmarks/results/compare.txt').toString();
+          await github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: "```\n" + results + "\n```"
+          })
+
+  run-benchmark-parent-access:
+    strategy:
+      fail-fast: false
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/setup-java@v3
+      with:
+          java-version: '11'
+          distribution: 'temurin'
+    
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+
+    - name: Checkout Main
+      uses: actions/checkout@v4
+      ref: 'main'
+      
+    - name: Control Benchmarks
+      run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="parent-access"
+    
+    - name: Checkout Current
+      uses: actions/checkout@v4
+
+    - name: Change Benchmarks
+      run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="parent-access"
+
+    - name: Publish Compare Result
+      uses: actions/github-script@v6
+      with:
+        script: |
+          let fs = require('fs');
+          let results = fs.readFileSync('scout/measures/jvm-benchmarks/results/compare.txt').toString();
+          await github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: "```\n" + results + "\n```"
+          })
+
+  run-benchmark-init-scope:
+    strategy:
+      fail-fast: false
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/setup-java@v3
+      with:
+          java-version: '11'
+          distribution: 'temurin'
+    
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+
+    - name: Checkout Main
+      uses: actions/checkout@v4
+      ref: 'main'
+      
+    - name: Control Benchmarks
+      run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="init-scope"
+    
+    - name: Checkout Current
+      uses: actions/checkout@v4
+
+    - name: Change Benchmarks
+      run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="init-scope"
+
+    - name: Publish Compare Result
+      uses: actions/github-script@v6
+      with:
+        script: |
+          let fs = require('fs');
+          let results = fs.readFileSync('scout/measures/jvm-benchmarks/results/compare.txt').toString();
+          await github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: "```\n" + results + "\n```"
+          })
+
+  run-benchmark-builder-mode:
+    strategy:
+      fail-fast: false
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/setup-java@v3
+      with:
+          java-version: '11'
+          distribution: 'temurin'
+    
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+
+    - name: Checkout Main
+      uses: actions/checkout@v4
+      ref: 'main'
+      
+    - name: Control Benchmarks
+      run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="builder-mode"
+    
+    - name: Checkout Current
+      uses: actions/checkout@v4
+
+    - name: Change Benchmarks
+      run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="builder-mode"
+
+    - name: Publish Compare Result
+      uses: actions/github-script@v6
+      with:
+        script: |
+          let fs = require('fs');
+          let results = fs.readFileSync('scout/measures/jvm-benchmarks/results/compare.txt').toString();
+          await github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: "```\n" + results + "\n```"
+          })
