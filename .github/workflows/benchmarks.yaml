@@ -30,6 +30,8 @@ jobs:
 
     - name: Checkout Current
       uses: actions/checkout@v4
+      with:
+        clean: false
     
     - name: Change Benchmarks
       run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="get-call"
@@ -72,6 +74,8 @@ jobs:
 
     - name: Checkout Current
       uses: actions/checkout@v4
+      with:
+        clean: false
     
     - name: Change Benchmarks
       run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="collect-call"
@@ -114,6 +118,8 @@ jobs:
     
     - name: Checkout Current
       uses: actions/checkout@v4
+      with:
+        clean: false
 
     - name: Change Benchmarks
       run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="associate-call"
@@ -156,6 +162,8 @@ jobs:
     
     - name: Checkout Current
       uses: actions/checkout@v4
+      with:
+        clean: false
 
     - name: Change Benchmarks
       run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="parent-access"
@@ -198,6 +206,8 @@ jobs:
     
     - name: Checkout Current
       uses: actions/checkout@v4
+      with:
+        clean: false
 
     - name: Change Benchmarks
       run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="init-scope"
@@ -240,6 +250,8 @@ jobs:
     
     - name: Checkout Current
       uses: actions/checkout@v4
+      with:
+        clean: false
 
     - name: Change Benchmarks
       run: cd scout && ./gradlew :measures:jvm-benchmarks:run --args="builder-mode"
