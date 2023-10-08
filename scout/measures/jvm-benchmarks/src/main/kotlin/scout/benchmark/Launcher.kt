@@ -21,6 +21,7 @@ import org.openjdk.jmh.runner.Runner
 import org.openjdk.jmh.runner.options.ChainedOptionsBuilder
 import org.openjdk.jmh.runner.options.Options
 import org.openjdk.jmh.runner.options.OptionsBuilder
+import org.openjdk.jmh.runner.options.TimeValue
 import scout.Scout
 import scout.benchmark.benchmarks.assessment.AssociateCallBenchmark
 import scout.benchmark.benchmarks.assessment.BuilderModeBenchmark
@@ -140,6 +141,13 @@ abstract class Optimized {
 private val options = OptionsBuilder()
     .mode(Mode.AverageTime)
 
+private fun accurate(builder: ChainedOptionsBuilder) = builder
+    .warmupIterations(2)
+    .warmupTime(TimeValue.seconds(2))
+    .measurementIterations(5)
+    .measurementTime(TimeValue.seconds(2))
+    .forks(3)
+
 private fun interactive() {
     val scanner = Scanner(System.`in`)
 
@@ -192,7 +200,7 @@ private fun independent(args: Array<String>) {
         indices = indices
     ) ?: return
 
-    val results = Runner(options + benchmarks).run()
+    val results = Runner(accurate(options) + benchmarks).run()
 
     compareResults(results)
 
