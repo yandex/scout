@@ -39,7 +39,7 @@ class BadComponent : Component(myScope) {
 
 Component methods must synchronously query all necessary types from the graph. If there are 
 asynchronous calls in a component method, they will not be validated because they will not be 
-called in the test. Сomponent сдфыы provides special methods for obtaining `Lazy` and 
+called in the test. Сomponent class provides special methods for obtaining `Lazy` and 
 `Provider`.
 
 ```kotlin
