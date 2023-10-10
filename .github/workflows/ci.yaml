@@ -21,7 +21,7 @@ jobs:
           distribution: 'temurin'
       
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
+      uses: gradle/gradle-build-action@v2.4.2
 
     - name: Build Sources
       run: cd scout && ./gradlew assemble --stacktrace
@@ -40,7 +40,7 @@ jobs:
           distribution: 'temurin'
       
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
+      uses: gradle/gradle-build-action@v2.4.2
 
     - name: Build Sources
       run: cd scout && ./gradlew assemble -Dscout.compile.keys=true --stacktrace
@@ -59,7 +59,7 @@ jobs:
           distribution: 'temurin'
       
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
+      uses: gradle/gradle-build-action@v2.4.2
 
     - name: Run Unit-Tests
       run: cd scout && ./gradlew test --stacktrace
@@ -78,7 +78,7 @@ jobs:
           distribution: 'temurin'
       
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
+      uses: gradle/gradle-build-action@v2.4.2
 
     - name: Run Unit-Tests
       run: cd scout && ./gradlew test -Dscout.compile.keys=true --stacktrace
