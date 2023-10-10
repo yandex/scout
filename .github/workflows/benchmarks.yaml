@@ -18,7 +18,7 @@ jobs:
           distribution: 'temurin'
     
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
+      uses: gradle/gradle-build-action@v2.4.2
 
     - name: Checkout Main
       uses: actions/checkout@v4
@@ -62,7 +62,7 @@ jobs:
           distribution: 'temurin'
     
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
+      uses: gradle/gradle-build-action@v2.4.2
 
     - name: Checkout Main
       uses: actions/checkout@v4
@@ -106,7 +106,7 @@ jobs:
           distribution: 'temurin'
     
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
+      uses: gradle/gradle-build-action@v2.4.2
 
     - name: Checkout Main
       uses: actions/checkout@v4
@@ -150,7 +150,7 @@ jobs:
           distribution: 'temurin'
     
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
+      uses: gradle/gradle-build-action@v2.4.2
 
     - name: Checkout Main
       uses: actions/checkout@v4
@@ -194,7 +194,7 @@ jobs:
           distribution: 'temurin'
     
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
+      uses: gradle/gradle-build-action@v2.4.2
 
     - name: Checkout Main
       uses: actions/checkout@v4
@@ -238,7 +238,7 @@ jobs:
           distribution: 'temurin'
     
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
+      uses: gradle/gradle-build-action@v2.4.2
 
     - name: Checkout Main
       uses: actions/checkout@v4
