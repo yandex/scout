@@ -101,3 +101,26 @@ factory<MyService> { // bad factory
 }
 ```
 
+## Factory should be defined undoubtedly
+
+The factory must be registered without any conditions. If the factory registering depends on some condition, the test cannot guarantee that graph is consistent for both: when the condition is met and when it is not met.
+
+```kotlin
+if (BuildConfig.DEBUG) { // bad idea
+    factory<DebugFeatureManager> {
+        DebugFeatureManager()
+    }
+}
+
+factory<DebugFeatureManager> { // good idea
+    ProductionDebugFeatureManager()
+}
+
+Scout.Interceptors.register( // replace factory for debug
+    ObjectFactoryReplacer {
+        factory<DebugFeatureManager> {
+            DevelopmentDebugFeatureManager()
+        }
+    }
+}
+```
