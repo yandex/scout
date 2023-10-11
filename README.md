@@ -81,6 +81,7 @@ dependencies {
 ## Tutorials
 
 - [Quick Start](docs/quick-start-guide.md)
+- [Scope Anatomy](docs/scope-anatomy.md)
 - [Essential Rules](docs/essential-rules.md)
 - [Validation Guide](docs/validation.md)
 - [Multibindings](docs/multibindings.md)
