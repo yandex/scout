@@ -216,9 +216,9 @@ private fun selectBenchmarks(indices: List<Int>): List<KClass<*>>? {
     val benchmarks = mutableListOf<KClass<*>>()
     for (index in indices) {
         if (index == 0) {
-            return (assessments + comparisons).map { scenario ->
+            return (assessments + comparisons).flatMap { scenario ->
                 scenario.benchmarks
-            }.flatten().distinct()
+            }.distinct()
         } else if (0 < index && index <= assessments.size) {
             benchmarks.addAll(assessments[index - 1].benchmarks)
         } else if (assessments.size < index && index <= assessments.size + comparisons.size) {
