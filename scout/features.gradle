@@ -1,1 +1,1 @@
-ext.withCompiledKeys = System.getProperty("scout.compile.keys") == "true"
+ext.withCompiledKeys = true//System.getProperty("scout.compile.keys") == "true"

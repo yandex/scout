@@ -26,6 +26,7 @@ import scout.exception.MissingObjectFactoryException
 import scout.exception.ObjectCreationFailedException
 import scout.exception.ObjectNullabilityException
 import scout.factory.InstanceFactory
+import scout.map.ObjectFactoryMap
 import scout.scope.access.Accessor
 import scout.scope.access.DirectAccessor
 import scout.scope.access.TrickyAccessor
@@ -61,7 +62,7 @@ inline fun scope(
 class Scope internal constructor(
     val name: String,
     val parents: List<Scope>,
-    private val objectFactories: Map<ObjectKey, InstanceFactory<*>>,
+    private val objectFactories: ObjectFactoryMap,
     private val collectionFactories: Map<CollectionKey, List<InstanceFactory<*>>>,
     private val associationFactories: Map<AssociationKey, List<InstanceFactory<out Pair<Any, Any>>>>,
     private val allowedObjectOverrides: Set<ObjectKey>,
@@ -354,7 +355,7 @@ class Scope internal constructor(
             }
             append(
                 "⌞ $node (" +
-                        "object factories: ${node.objectFactories.size}, " +
+                        "object factories: ${node.objectFactories.toMap().size}, " +
                         "collection factories: ${node.collectionFactories.size}, " +
                         "association factories: ${node.associationFactories.size}, " +
                         "allowed object overrides: ${node.allowedObjectOverrides.size}" +

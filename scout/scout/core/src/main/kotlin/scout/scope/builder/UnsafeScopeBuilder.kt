@@ -24,6 +24,7 @@ import scout.exception.IllegalOverridesException
 import scout.exception.ScopeInitializationException
 import scout.factory.InstanceFactory
 import scout.logging.Logger
+import scout.map.createObjectFactoryMap
 
 @PublishedApi
 internal open class UnsafeScopeBuilder(
@@ -92,7 +93,7 @@ internal open class UnsafeScopeBuilder(
             val scope = Scope(
                 name = name,
                 parents = parentScopes,
-                objectFactories = objectFactories,
+                objectFactories = createObjectFactoryMap(objectFactories),
                 collectionFactories = collectionFactories,
                 associationFactories = associationFactories,
                 allowedObjectOverrides = allowedObjectOverrides,
